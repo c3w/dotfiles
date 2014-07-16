@@ -1,0 +1,16 @@
+###
+## OSX Bash prompt
+## https://github.com/c3w/dotfiles
+## 20140716 v1 - adaptive status bar using tput
+
+freeMem() {
+	free="$(( $(vm_stat | awk '/free/ {gsub(/\./, "", $3); print $3}') * 4096 / 1048576))MB"
+	echo "[\033[1;31m${free}\033[1;37m]"
+}
+gitBranch() { git branch 2>/dev/null|grep -e ^\*|cut -d\  -f2; }
+
+cmdFail() { ex=$?; if (($ex > 0)); then echo -ne "\033[41;1;37mo_O" && $(@database) && $(@) && return $ex; else echo -ne "\033[1;37m^-^" && return $ex; fi; }
+
+machFactor() { cols=$(tput cols); rcols=$((${cols}-30)); echo -ne "\033[$(tput lines);${rcols}H\033[38;05;239m[\033[38;05;83m$(hostinfo|grep threads|cut -d\  -f6)t\033[38;05;239m]\033[38;05;239m[\033[38;05;166m$(hostinfo|grep "Mach factor"|cut -d: -f2|cut -d, -f1|awk '{print $1}')mF\033[38;05;239m][\033[38;05;240m$(ls -lah|grep total|cut -d\  -f2)k]"; }
+
+export PS1="\n\$(cmdFail)\[\e[0m\]\033[38;05;239m:\!:\033[38;05;48m\w (\033[38;05;202m\$(gitBranch)\e[32;1m\])\033[s\$(machFactor)\033[u\n\[\e[37;0m\]\[\e[0m\]\$ "
