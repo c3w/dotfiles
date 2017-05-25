@@ -1,0 +1,5 @@
+# opens a browser (to github, stash, or bitbucket), from a command line git repo
+# place in your ~/.bash_profile
+gitgo() {
+        open "$(git config --get remote.origin.url|sed -e 's/.*@//;s/\.git$//;s/:[0-9]\{1,\}\//\/projects\//;s/^/https:\/\//;s/\(\/[^\/]*$\)/\/repos\1/;s/\(.*github.*\)\(repos\)\(.*\)\//\1\3/;s/\([a-z]\):\([^\/]\)/\1\/\2/')"
+}

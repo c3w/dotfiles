@@ -1,5 +1,7 @@
 ~~ dotfiles ~~
 
+gitgo() :: opens a browser (to github, stash, or bitbucket), from a command line git repo
+
 bash-prompt :: OSX Bash prompt for xterm-256 (Terminal)
 	FEATURING
 	. happy cat exit code
