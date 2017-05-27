@@ -1,0 +1,3 @@
+# pushes commits on the git branch you're on
+gitBranch() { git branch 2>/dev/null|grep -e ^\*|cut -d\  -f2; }
+gpush() { echo -n "pushing to $(gitBranch)... "; git push origin $(gitBranch); }
