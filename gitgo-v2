@@ -1,0 +1,7 @@
+# opens a browser to github, to the working branch, from the repo you're in
+# V2 of gitgo() :: I don't have access to stash or bitbucket, but this will work on github for sure
+
+gitgo() {
+_gitgo_branch=$(git branch 2>/dev/null|grep -e ^\*|cut -d\  -f2;)
+        open "$(git config --get remote.origin.url|sed -e 's/.*@//;s/\.git$//;s/:[0-9]\{1,\}\//\/projects\//;s/^/https:\/\//;s/\(\/[^\/]*$\)/\/repos\1/;s/\(.*github.*\)\(repos\)\(.*\)\//\1\3/;s/\([a-z]\):\([^\/]\)/\1\/\2/')/tree/${_gitgo_branch}"
+}
